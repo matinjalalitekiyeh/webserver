@@ -153,7 +153,25 @@ TEST(uri_tests, parse_from_string_path_relative_vs_non_relative_reference) {
 }
 
 TEST(uri_tests, parse_from_string_path_relative_vs_non_relative_path) {
-    ASSERT_TRUE(true);
+    struct Test_Vertor {
+        std::string uri_strings;
+        bool is_contains_relative_path;
+    };
+    const std::vector<Test_Vertor> test_vectors {
+        {"http://example.com/", false},
+        {"http://example.com", true},
+        {"/", false},
+        {"foo", true},
+        {"", true},
+    };
+
+    size_t index = 0;
+    for (const auto& testVector : test_vectors) {
+        magno::uri uri;
+        ASSERT_TRUE(uri.parse_from_string(testVector.uri_strings)) << index;
+        ASSERT_EQ(testVector.is_contains_relative_path, uri.is_contains_relative_path()) << index;
+        ++index;
+    }
 }
 
 

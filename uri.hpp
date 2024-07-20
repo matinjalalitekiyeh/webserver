@@ -34,6 +34,8 @@ public:
 
     bool is_relative_reference() const;
 
+    bool is_contains_relative_path() const;
+
 private:
     struct Impl;
     Impl* impl_;

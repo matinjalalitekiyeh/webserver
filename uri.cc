@@ -107,9 +107,16 @@ uint16_t magno::uri::get_port() const {
     return impl_->port;
 }
 
-bool magno::uri::is_relative_reference() const
-{
+bool magno::uri::is_relative_reference() const {
     return impl_->scheme.empty();
+}
+
+bool magno::uri::is_contains_relative_path() const {
+    if (impl_->path.empty()) {
+        return true;
+    }else{
+        return !impl_->path[0].empty();
+    }
 }
 
 //void magno::uri::set_path_delimiter(const std::string &newPathDelimiter)
