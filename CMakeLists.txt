@@ -11,23 +11,23 @@ set(CMAKE_CXX_FLAGS "-g -Wall")
 
 # force static runtime libraries for msvc builds
 if(MSVC)
-  set(variables 
+  set(variables
     CMAKE_CXX_FLAGS_DEBUG
     CMAKE_CXX_FLAGS_RELEASE
-	CMAKE_CXX_FLAGS_RELWITHDEBINFO
-	CMAKE_CXX_FLAGS_MINSIZEREL
+        CMAKE_CXX_FLAGS_RELWITHDEBINFO
+        CMAKE_CXX_FLAGS_MINSIZEREL
   )
   foreach(variable ${variables})
-	if(${variable} MATCHES "/MD")
-	  string(REGEX REPLACE "/MD" "/MT" ${variable} "${${variable}}")
-	endif()
+        if(${variable} MATCHES "/MD")
+          string(REGEX REPLACE "/MD" "/MT" ${variable} "${${variable}}")
+        endif()
   endforeach()
 endif()
 
-add_library(project1_lib uri.cc)
+add_library(uri_lib uri.cc)
 
 add_executable(${PROJECT_NAME} main.cpp)
-target_link_libraries(${PROJECT_NAME} project1_lib)
+target_link_libraries(${PROJECT_NAME} uri_lib)
 
 ################################
 # Testing
@@ -40,7 +40,7 @@ if (test)
 
   add_executable(runUnitTests test_uri.cc)
   target_link_libraries(runUnitTests gtest gtest_main)
-  target_link_libraries(runUnitTests project1_lib)
+  target_link_libraries(runUnitTests uri_lib)
   add_test(NAME that-test-I-made COMMAND runUnitTests)
   add_test(that-other-test-I-made runUnitTests)
 endif()

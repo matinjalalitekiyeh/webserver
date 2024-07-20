@@ -32,6 +32,8 @@ public:
 
     uint16_t get_port() const;
 
+    bool is_relative_reference() const;
+
 private:
     struct Impl;
     Impl* impl_;
